@@ -6,7 +6,8 @@ module.exports = {
   input: 'src/main.js',
   output: {
     file: 'magi.js',
-    format: 'iife'
+    name: 'magi',
+    format: 'umd'
   },
   watch: {
     include: 'src/**',

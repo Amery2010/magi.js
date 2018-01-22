@@ -6,7 +6,7 @@ module.exports = {
     sourceType: 'module'
   },
   env: {
-    es6: true,
+    es6: true
   },
   // https://github.com/standard/standard/blob/master/docs/RULES-en.md
   extends: 'standard',
