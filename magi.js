@@ -178,7 +178,10 @@ var Magi = function () {
       var tweenSettings = replaceObjectProps(this.tweenSettings, params);
       var animates = getProperties(tweenSettings, params);
       if (this.actions.length > 0) {
-        var inheritAnimates = [].concat(_toConsumableArray(this.actions[this.actions.length - 1]));
+        var inheritAnimates = [];
+        this.actions[this.actions.length - 1].forEach(function (item) {
+          inheritAnimates.push(cloneObject(item));
+        });
         var diffAnimate = [];
         animates.forEach(function (prop) {
           var diff = true;
@@ -190,7 +193,10 @@ var Magi = function () {
           });
           if (diff) diffAnimate.push(prop);
         });
-        this.actions.push(diffAnimate.concat(inheritAnimates));
+        inheritAnimates.forEach(function (prop) {
+          prop.tweens = replaceObjectProps(prop.tweens, tweenSettings);
+        });
+        this.actions.push(inheritAnimates.concat(diffAnimate));
       } else {
         this.actions.push(animates);
       }

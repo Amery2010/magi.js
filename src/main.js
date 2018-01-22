@@ -1,8 +1,8 @@
 import { defaultTweenSettings, validTransforms } from './defaults'
 import { is } from './utils/base'
-import { replaceObjectProps } from './utils/objects'
+import { cloneObject, replaceObjectProps } from './utils/objects'
 import { getProperties } from './utils/properties'
-import { arrayContains, filterArray } from './utils/arrays'
+import { arrayContains } from './utils/arrays'
 import { getValue } from './utils/values'
 
 class Magi {
@@ -57,7 +57,10 @@ class Magi {
     const tweenSettings = replaceObjectProps(this.tweenSettings, params)
     const animates = getProperties(tweenSettings, params)
     if (this.actions.length > 0) {
-      const inheritAnimates = [ ...this.actions[this.actions.length - 1] ]
+      const inheritAnimates = []
+      this.actions[this.actions.length - 1].forEach(item => {
+        inheritAnimates.push(cloneObject(item))
+      })
       const diffAnimate = []
       animates.forEach(prop => {
         let diff = true
@@ -69,7 +72,10 @@ class Magi {
         })
         if (diff) diffAnimate.push(prop)
       })
-      this.actions.push(diffAnimate.concat(inheritAnimates))
+      inheritAnimates.forEach(prop => {
+        prop.tweens = replaceObjectProps(prop.tweens, tweenSettings)
+      })
+      this.actions.push(inheritAnimates.concat(diffAnimate))
     } else {
       this.actions.push(animates)
     }
