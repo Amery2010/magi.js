@@ -9,5 +9,5 @@ export const validTransforms = [
   'translate', 'translate3d', 'translateX', 'translateY', 'translateZ',
   'rotate', 'rotate3d', 'rotateX', 'rotateY', 'rotateZ',
   'scale', 'scale3d', 'scaleX', 'scaleY', 'scaleZ',
-  'skew', 'skewX', 'skewY', 'matrix', 'matrix3d'
+  'skew', 'skewX', 'skewY', 'matrix', 'matrix3d', 'perspective'
 ]

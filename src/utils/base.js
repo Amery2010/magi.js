@@ -22,3 +22,8 @@ export function getUnit (val) {
   const split = /([+-]?[0-9#.]+)(%|px|pt|em|rem|in|cm|mm|ex|ch|pc|vw|vh|vmin|vmax|deg|rad|turn)?$/.exec(val)
   if (split) return split[2]
 }
+
+export function getTransformUnit (propName) {
+  if (stringContains(propName, 'translate') || propName === 'perspective') return 'px'
+  if (stringContains(propName, 'rotate') || stringContains(propName, 'skew')) return 'deg'
+}

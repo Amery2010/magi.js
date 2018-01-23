@@ -1,20 +1,24 @@
 import { defaultTweenSettings, validTransforms } from './defaults'
 import { is } from './utils/base'
-import { cloneObject, replaceObjectProps } from './utils/objects'
+import { replaceObjectProps } from './utils/objects'
 import { getProperties } from './utils/properties'
 import { arrayContains } from './utils/arrays'
 import { getValue } from './utils/values'
 
 class Magi {
-  constructor (params = {}) {
-    this.tweenSettings = replaceObjectProps(defaultTweenSettings, params)
-    const animates = getProperties(this.tweenSettings, params)
-    this.actions = []
-    if (animates.length > 0) {
-      this.add(params)
-    }
+  constructor () {
+    this.target = undefined
+    this.animates = []
   }
-  init () {
+  _hasTransitionProps (obj) {
+    for (let p in obj) {
+      if (!defaultTweenSettings.hasOwnProperty(p)) return true
+    }
+    return false
+  }
+  init (params = {}) {
+    this.tweenSettings = replaceObjectProps(defaultTweenSettings, params)
+    if (this._hasTransitionProps(params)) this.then(params)
     return this
   }
   format (animas) {
@@ -46,43 +50,21 @@ class Magi {
       }
     }
   }
-  export () {
+  end () {
     return {
       actions: [ ...this.actions ].map(anima => {
         return this.format(anima)
       })
     }
   }
-  add (params) {
+  then (params) {
     const tweenSettings = replaceObjectProps(this.tweenSettings, params)
     const animates = getProperties(tweenSettings, params)
-    if (this.actions.length > 0) {
-      const inheritAnimates = []
-      this.actions[this.actions.length - 1].forEach(item => {
-        inheritAnimates.push(cloneObject(item))
-      })
-      const diffAnimate = []
-      animates.forEach(prop => {
-        let diff = true
-        inheritAnimates.forEach(p => {
-          if (p.name === prop.name) {
-            diff = false
-            p.tweens.value = prop.tweens.value
-          }
-        })
-        if (diff) diffAnimate.push(prop)
-      })
-      inheritAnimates.forEach(prop => {
-        prop.tweens = replaceObjectProps(prop.tweens, tweenSettings)
-      })
-      this.actions.push(inheritAnimates.concat(diffAnimate))
-    } else {
-      this.actions.push(animates)
-    }
+    console.log(animates)
     return this
   }
 }
 
 export default function magi (params = {}) {
-  return new Magi(params).init()
+  return new Magi().init(params)
 }
