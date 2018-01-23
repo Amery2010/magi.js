@@ -1,9 +1,8 @@
 import { defaultTweenSettings, validTransforms } from './defaults'
 import { is } from './utils/base'
-import { replaceObjectProps } from './utils/objects'
+import { replaceObjectProps, cloneObject } from './utils/objects'
 import { getProperties } from './utils/properties'
 import { arrayContains } from './utils/arrays'
-import { getValue } from './utils/values'
 
 class Magi {
   constructor () {
@@ -21,22 +20,24 @@ class Magi {
     if (this._hasTransitionProps(params)) this.then(params)
     return this
   }
-  format (animas) {
-    const settings = animas[0].tweens
-    const animates = [ ...animas ].map((prop, idx) => {
-      const name = prop.name
-      const value = prop.tweens.value
+  format (data) {
+    const settings = data.tweens
+    const animates = []
+    const transforms = []
+    data.props.forEach(prop => {
+      const { name, value } = prop
       if (arrayContains(validTransforms, name)) {
-        return {
-          type: name,
-          args: getValue(value)
-        }
+        transforms.push(`${name}(${is.arr(value) ? value.join(', ') : value})`)
       } else {
-        return {
+        animates.push({
           type: 'style',
-          args: [name, is.str(value) ? value : value + 'px']
-        }
+          args: [name, value]
+        })
       }
+    })
+    animates.push({
+      type: 'style',
+      args: ['transform', transforms.join(' ')]
     })
     return {
       animates,
@@ -52,15 +53,46 @@ class Magi {
   }
   end () {
     return {
-      actions: [ ...this.actions ].map(anima => {
-        return this.format(anima)
+      actions: [ ...this.animates ].map(animate => {
+        return this.format(animate)
       })
     }
   }
+  _includeSameProp (arr, propName) {
+    return arr.some(p => p.name === propName)
+  }
   then (params) {
     const tweenSettings = replaceObjectProps(this.tweenSettings, params)
-    const animates = getProperties(tweenSettings, params)
-    console.log(animates)
+    const properties = getProperties(tweenSettings, params)
+    if (this.animates.length > 0) {
+      const prevProps = this.animates[this.animates.length - 1].props
+      const inheritProps = []
+      const differentProps = []
+      // 过滤已出现的属性
+      properties.forEach(prop => {
+        if (!prevProps.some(p => p.name === prop.name)) differentProps.push(cloneObject(prop))
+      })
+      // 更新属性值
+      prevProps.forEach(prop => {
+        let findSameProp = false
+        findSameProp = properties.some(p => {
+          if (p.name === prop.name) {
+            inheritProps.push(cloneObject(p))
+            return true
+          }
+        })
+        if (!findSameProp) inheritProps.push(cloneObject(prop))
+      })
+      this.animates.push({
+        props: inheritProps.concat(differentProps),
+        tweens: tweenSettings
+      })
+    } else {
+      this.animates.push({
+        props: properties,
+        tweens: tweenSettings
+      })
+    }
     return this
   }
 }

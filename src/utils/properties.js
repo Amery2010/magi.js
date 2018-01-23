@@ -5,9 +5,8 @@ import { validateValue } from './values'
 import { arrayContains } from './arrays'
 
 export function getPropertieVulue (propName, value) {
-  return validateValue(value, arrayContains(validTransforms, propName)
-    ? getTransformUnit(propName)
-    : (getUnit(propName) ? getUnit(propName) : 'px'))
+  const unit = getUnit(value)
+  return validateValue(value, unit || (arrayContains(validTransforms, propName) ? getTransformUnit(propName) : 'px'))
 }
 
 export function getProperties (tweenSettings, params) {
