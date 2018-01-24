@@ -1,9 +1,10 @@
 // rollup.config.js
 const resolve = require('rollup-plugin-node-resolve')
 const babel = require('rollup-plugin-babel')
+const uglify = require('rollup-plugin-uglify')
 
 module.exports = {
-  input: 'src/main.js',
+  input: 'src/core.js',
   output: {
     file: 'magi.js',
     name: 'magi',
@@ -17,6 +18,7 @@ module.exports = {
     resolve(),
     babel({
       exclude: 'node_modules/**' // only transpile our source code
-    })
+    }),
+    uglify()
   ]
 }

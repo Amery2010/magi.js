@@ -17,9 +17,3 @@ export function mergeObjects (o1, o2) {
   for (let p in o2) o[p] = is.und(o1[p]) ? o2[p] : o1[p]
   return o
 }
-
-export default {
-  cloneObject,
-  replaceObjectProps,
-  mergeObjects
-}

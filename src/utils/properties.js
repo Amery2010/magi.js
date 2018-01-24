@@ -1,4 +1,4 @@
-import { validTransforms } from '../defaults'
+import { defaultTweenSettings, validTransforms } from '../defaults'
 import { is, getUnit, getTransformUnit } from './base'
 import { stringToHyphens } from './strings'
 import { validateValue } from './values'
@@ -7,6 +7,13 @@ import { arrayContains } from './arrays'
 export function getPropertieVulue (propName, value) {
   const unit = getUnit(value)
   return validateValue(value, unit || (arrayContains(validTransforms, propName) ? getTransformUnit(propName) : 'px'))
+}
+
+export function hasTransitionProps (obj) {
+  for (let p in obj) {
+    if (!defaultTweenSettings.hasOwnProperty(p)) return true
+  }
+  return false
 }
 
 export function getProperties (tweenSettings, params) {
@@ -33,8 +40,4 @@ export function getProperties (tweenSettings, params) {
         : getPropertieVulue(prop.name, prop.value)
     }
   })
-}
-
-export default {
-  getProperties
 }
