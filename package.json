@@ -1,5 +1,5 @@
 {
-  "name": "magi",
+  "name": "magi.js",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/Amery2010/magi.js.git",
@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
+    "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-env": "^1.6.1",
     "eslint": "^4.15.0",
     "eslint-config-standard": "^11.0.0-beta.0",

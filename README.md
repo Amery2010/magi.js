@@ -1,2 +1,2 @@
 # magi.js
-JavaScript Animation Engine for Wechat Mini Program
+适用于微信小程序的 JavaScript 动画引擎

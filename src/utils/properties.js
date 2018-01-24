@@ -6,7 +6,7 @@ import { arrayContains } from './arrays'
 
 export function getPropertieVulue (propName, value) {
   const unit = getUnit(value)
-  return validateValue(value, unit || (arrayContains(validTransforms, propName) ? getTransformUnit(propName) : 'px'))
+  return validateValue(value, unit || (arrayContains(validTransforms, propName) ? getTransformUnit(propName) : ''))
 }
 
 export function hasTransitionProps (obj) {

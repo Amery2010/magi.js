@@ -1,12 +1,26 @@
+/**
+ * https://xiangfa.org/
+ * JavaScript Animation Engine for Wechat Mini Program
+ * @version v1.0.0
+ * @author Amery
+ * @copyright ©2017 Amery
+ * Released under the MIT license
+**/
+
 import { defaultTweenSettings, validTransforms } from './defaults'
 import { is } from './utils/base'
 import { replaceObjectProps, cloneObject } from './utils/objects'
 import { getProperties, hasTransitionProps } from './utils/properties'
 import { arrayContains } from './utils/arrays'
+import { normalizeEasing } from './utils/tweens'
+
+import easings from './easings'
 
 class Magi {
   constructor () {
+    this.version = '1.0.0'
     this.animates = []
+    this.easings = easings
   }
   init (params = {}) {
     this.tweenSettings = replaceObjectProps(defaultTweenSettings, params)
@@ -75,7 +89,7 @@ class Magi {
         transition: {
           delay: settings.delay,
           duration: settings.duration,
-          timingFunction: settings.easing
+          timingFunction: normalizeEasing(settings.easing)
         }
       }
     }
