@@ -1,8 +1,9 @@
 {
   "name": "magi.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "magi.js",
   "repository": "https://github.com/Amery2010/magi.js.git",
+  "keyword": ["magijs", "magi.js", "magi", "wechat-mini-program", "animate"],
   "author": "Amery2010 <amery@xiangfa.org>",
   "license": "MIT",
   "scripts": {

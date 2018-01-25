@@ -23,14 +23,14 @@ $ yarn add magi.js
 或者手动 [下载](https://github.com/Amery/magi.js/archive/master.zip) ，然后将 `magi.js` 复制到你的项目目录下。
 
 ```javascript
-var magi = require('magi.js')
+var magi = require('magi.js')
 
 或
 
-import magi from 'magi.js'
+import magi from 'magi.js'
 ```
 
-你可以像这样编写你的动画函数：
+你可以像这样编写你的动画函数：
 
 ```javascript
 magi({
@@ -46,7 +46,7 @@ magi({
 })
 ```
 
-**注意**：`magi.js` 与微信小程序中的 `wx.createAnimation` 类似，最后需要通过动画实例的 end 方法导出动画数据并传递给组件的 animation 属性。
+**注意**：`magi.js` 与微信小程序中的 `wx.createAnimation` 类似，最后需要通过动画实例的 end 方法导出动画数据并传递给组件的 animation 属性。
 
 ```html
 <view animation="{{animationData}}" style="background:red;height:100rpx;width:100rpx"></view>
@@ -69,7 +69,7 @@ this.setData({
 
 ## 动画属性
 
-| 类型 | 示例
+| 类型 | 示例
 | --- | ---
 | CSS | `width`, `opacity`, `backgroundColor` ...
 | Transforms | `translateX`, `rotate`, `scale` ...
@@ -86,14 +86,14 @@ magi({
 })
 ```
 
-### CSS transform 属性
+### CSS transform 属性
 
-有效的 CSS transform 属性：
+有效的 CSS transform 属性：
 
 ```javascript
 magi({
   translateX: 250, // 将 translateX 属性动画变换为 250px
-  scale: 2, // 将 scale 属性动画变换为 2
+  scale: 2, // 将 scale 属性动画变换为 2
   rotate: '1turn' // 将 rotation 属性动画变换为 1 turn
 })
 ```
