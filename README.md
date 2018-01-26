@@ -1,6 +1,6 @@
 # Magi.js [![npm version](https://badge.fury.io/js/magi.js.svg)](https://badge.fury.io/js/magi.js) ![size](http://img.badgesize.io/Amery2010/magi.js/master/magi.js.svg?style=flat&color=18FF92)
 
-> *Magi.js* 一款轻量级的适用于微信小程序的 JavaScript 动画引擎。使用“黑科技”来突破微信小程序 `wx.createAnimation` 实现上局限性，然你像使用 css transition 那样自由使用 JavaScript 动画。
+> *Magi.js* 一款轻量级的适用于微信小程序的 JavaScript 动画引擎。使用“黑魔法”来突破微信小程序 `wx.createAnimation` 实现上局限性，使你能像使用 css transition 那样自由使用 JavaScript 动画。
 
 ### 特点
 
@@ -162,7 +162,7 @@ magi({
 ```
 自定义 Bézier 曲线坐标生成器 <https://matthewlein.com/ceaser/>
 
-====
+----
 
 [MIT License](LICENSE.md). © 2018 [Amery2010](https://xiangfa.org/).
 
